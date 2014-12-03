@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminMasterPage.master.cs" Inherits="Infofudan.XinjiangPostcard.Views.Shared.AdminMasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>管理后台 一张明信片计划</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">-->
+	<link rel="stylesheet" type="text/css" href="css/admin.css">
+</head>
+<body>
+	<div class="nav">
+		<ul>
+			<li>管理后台</li>
+			<li>==============</li>
+			<li><a href="AddMore">>>批量导入新明信片数据</a></li>
+			<li><a href="CurrentList">>>查看当前数据</a></li>
+		</ul>
+	</div>
+	<div class="content">
+		<div class="content_title"><asp:ContentPlaceHolder ID="titleHolder" runat="server"></asp:ContentPlaceHolder></div>
+		<table class="table-hover" border="1">
+			<thead>
+			<tr>
+				<td width="50px">Id</td>
+				<td width="150px">姓名</td>
+				<td width="300px">简介</td>
+				<td width="50px">票数</td>
+				<td width="50px">推荐度</td>
+				<td width="120px">操作</td>
+			</tr>
+			</thead>
+            <tbody>
+			<asp:ContentPlaceHolder ID="ContentHolder" runat="server"></asp:ContentPlaceHolder>
+			</tbody>
+		</table>
+	</div>
+	<div style="clear:both"></div>
+</body>
+</html>

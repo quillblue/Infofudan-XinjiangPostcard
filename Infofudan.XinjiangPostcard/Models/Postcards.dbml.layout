@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Postcards">
+  <DataContextMoniker Name="/PostcardsDataContext" />
+  <nestedChildShapes>
+    <classShape Id="be782725-0176-4868-9ab4-5585909c8c24" absoluteBounds="2.625, 0.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/PostcardsDataContext/Place" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d0e8e831-3df4-4930-97f9-2c4a611c5c76" absoluteBounds="2.64, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="df47fccc-0ec4-4f4b-9b0b-dd71cedcd921" absoluteBounds="6.625, 0.875, 2, 1.9631982421875">
+      <DataClassMoniker Name="/PostcardsDataContext/Postcard" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6486b155-8907-44f3-a98e-142e6f99f997" absoluteBounds="6.64, 1.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.625 : 1.85659912109375); (6.625 : 1.85659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PostcardsDataContext/Place/Place_Postcard" />
+      <nodes>
+        <classShapeMoniker Id="be782725-0176-4868-9ab4-5585909c8c24" />
+        <classShapeMoniker Id="df47fccc-0ec4-4f4b-9b0b-dd71cedcd921" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.625 : 1.30329956054688); (6.625 : 1.30329956054688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PostcardsDataContext/Place/Place_Postcard1" />
+      <nodes>
+        <classShapeMoniker Id="be782725-0176-4868-9ab4-5585909c8c24" />
+        <classShapeMoniker Id="df47fccc-0ec4-4f4b-9b0b-dd71cedcd921" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
