@@ -20,7 +20,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
         public ActionResult Upload()
         {
             HttpPostedFileBase file = Request.Files["file"];
-            if (file != null) 
+            if (file != null)
             {
                 if (!file.FileName.EndsWith("xls"))
                 {
@@ -31,7 +31,12 @@ namespace Infofudan.XinjiangPostcard.Controllers
                     String filePath = HttpContext.Server.MapPath("../uploads/data/") + file.FileName;
                     file.SaveAs(filePath);
                     InsertProcessor ip = new InsertProcessor();
-                    ip.InsertDataByFile(filePath);
+                    int infectRows = ip.InsertDataByFile(filePath);
+                    if (infectRows == 0)
+                    {
+
+                    }
+                    else { }
 
                 }
             }
