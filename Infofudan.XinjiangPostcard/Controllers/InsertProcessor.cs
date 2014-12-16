@@ -10,17 +10,28 @@ namespace Infofudan.XinjiangPostcard.Controllers
 {
     public class InsertProcessor
     {
-        public int InsertDataByFile(String filePath)
+        private List<Postcard> readResultSet;
+        private String filePath;
+        private List<int> failedList;
+
+        public InsertProcessor(String filepath)
+        {
+            this.filePath = filepath;
+            failedList = new List<int>();
+        }
+        
+        public List<int> InsertDataByFile()
         {
             PostcardRepository pr=new PostcardRepository();
-            List<Postcard> readResult = ReadFile(filePath);
-            if (readResult == null)
+            ReadFile(filePath);
+            InsertToDatabase();
+            if (readResultSet == null)
             {
-                return 0;
+                return failedList;
             }
             else 
             {
-                foreach(Postcard p in readResult){
+                foreach(Postcard p in readResultSet){
                     int senderPlaceId = pr.GetPlaceIdByName("", 1);
                     if (senderPlaceId == 0)
                     {
@@ -28,13 +39,14 @@ namespace Infofudan.XinjiangPostcard.Controllers
                     }
                     else 
                     {
+
                     }
                 }
-                return readResult.Count;
+                return failedList;
             }
         }
 
-        private List<Postcard> ReadFile(String filePath) 
+        private void ReadFile(String filePath) 
         {
             DataSet workListDataset = new DataSet();
             String sConnectionString = "Provider=Microsoft.Jet.OleDb.4.0;" + "data source=" + filePath + ";Extended Properties='Excel 8.0; HDR=yes; IMEX=0'"; ;
@@ -49,15 +61,27 @@ namespace Infofudan.XinjiangPostcard.Controllers
                 DataRow dr = workListDataset.Tables[0].Rows[i];
                 try
                 {
-                    
+                    if (dr["乘车日期"].ToString() != "")
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine(e.StackTrace);
+                    failedList.Add(i + 1);
                 }
             }
-            return null;
+        }
+
+        private void InsertToDatabase()
+        {
+            
         }
     }
 }

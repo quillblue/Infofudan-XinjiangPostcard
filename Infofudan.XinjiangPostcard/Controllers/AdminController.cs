@@ -30,9 +30,9 @@ namespace Infofudan.XinjiangPostcard.Controllers
                 {
                     String filePath = HttpContext.Server.MapPath("../uploads/data/") + file.FileName;
                     file.SaveAs(filePath);
-                    InsertProcessor ip = new InsertProcessor();
-                    int infectRows = ip.InsertDataByFile(filePath);
-                    if (infectRows == 0)
+                    InsertProcessor ip = new InsertProcessor(filePath);
+                    List<int> failedRows = ip.InsertDataByFile();
+                    if (failedRows.Count == 0)
                     {
 
                     }
