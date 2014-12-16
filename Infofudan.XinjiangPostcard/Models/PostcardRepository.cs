@@ -26,7 +26,7 @@ namespace Infofudan.XinjiangPostcard.Models
 
         public int GetPlaceIdByName(String name, int mode)
         {
-            Place pl=db.Place.FirstOrDefault(p => p.Type == mode && p.CityName == name);
+            Place pl = db.Place.FirstOrDefault(p => p.Type == mode && p.CityName == name);
             if (pl == null)
             {
                 return -1;
@@ -37,6 +37,18 @@ namespace Infofudan.XinjiangPostcard.Models
         public Postcard GetPostcardById(int id)
         {
             return db.Postcard.FirstOrDefault(p => p.Id == id);
+        }
+
+        public int GetLatestPlaceId(int mode)
+        {
+            return db.Place.LastOrDefault(p => p.Type == mode).Id;
+        }
+        
+        public void UpdatePlaceCount(int placeId)
+        {
+            Place pl = db.Place.FirstOrDefault(p => p.Id == placeId);
+            pl.Count += 1;
+            db.SubmitChanges();
         }
 
         public void Delete(Postcard p)

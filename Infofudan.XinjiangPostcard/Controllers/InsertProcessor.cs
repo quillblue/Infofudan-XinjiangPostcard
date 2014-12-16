@@ -10,43 +10,29 @@ namespace Infofudan.XinjiangPostcard.Controllers
 {
     public class InsertProcessor
     {
-        private List<Postcard> readResultSet;
+        private List<FullInfo> readResultSet;
         private String filePath;
-        private List<int> failedList;
+        private List<String> failedList;
 
         public InsertProcessor(String filepath)
         {
             this.filePath = filepath;
-            failedList = new List<int>();
+            failedList = new List<String>();
         }
-        
-        public List<int> InsertDataByFile()
+
+        public List<String> InsertDataByFile()
         {
-            PostcardRepository pr=new PostcardRepository();
+
             ReadFile(filePath);
-            InsertToDatabase();
             if (readResultSet == null)
             {
                 return failedList;
             }
-            else 
-            {
-                foreach(Postcard p in readResultSet){
-                    int senderPlaceId = pr.GetPlaceIdByName("", 1);
-                    if (senderPlaceId == 0)
-                    {
-
-                    }
-                    else 
-                    {
-
-                    }
-                }
-                return failedList;
-            }
+            InsertToDatabase();
+            return failedList;
         }
 
-        private void ReadFile(String filePath) 
+        private void ReadFile(String filePath)
         {
             DataSet workListDataset = new DataSet();
             String sConnectionString = "Provider=Microsoft.Jet.OleDb.4.0;" + "data source=" + filePath + ";Extended Properties='Excel 8.0; HDR=yes; IMEX=0'"; ;
@@ -59,29 +45,83 @@ namespace Infofudan.XinjiangPostcard.Controllers
             for (int i = 0; i < workListDataset.Tables[0].Rows.Count; i++)
             {
                 DataRow dr = workListDataset.Tables[0].Rows[i];
+                FullInfo fi = new FullInfo();
                 try
                 {
-                    if (dr["乘车日期"].ToString() != "")
+                    if (dr["编号"].ToString() != "")
                     {
+                        fi.CardId = dr["编号"].ToString();
+                        fi.CardContent.SenderName = dr["姓名"].ToString();
+                        fi.CardContent.Message = dr["摘录"].ToString();
 
-                    }
-                    else
-                    {
+                        if (dr["地区(省)"].ToString() != "")
+                        {
+                            fi.PhotoPlace.IsDomestic = (dr["景国内外"].ToString() == "国内");
+                            fi.PhotoPlace.CityName = dr["地区(省)"].ToString();
+                            fi.PhotoPlace.Detail = dr["风景地"].ToString();
+                            fi.PhotoPlace.Lon = Convert.ToDouble(dr["景坐标"].ToString().Split(',')[0]);
+                            fi.PhotoPlace.Lat = Convert.ToDouble(dr["景坐标"].ToString().Split(',')[1]);
+                            fi.PhotoPlace.Type = 0;
+                            fi.PhotoPlace.Count = 1;
+                        }
+                        else
+                        {
+                            fi.PhotoPlace = null;
+                        }
 
+                        fi.SenderPlace.IsDomestic = (dr["戳国内外"].ToString() == "国内");
+                        fi.SenderPlace.CityName = dr["邮戳地"].ToString();
+                        fi.SenderPlace.Lon = Convert.ToDouble(dr["戳坐标"].ToString().Split(',')[0]);
+                        fi.SenderPlace.Lat = Convert.ToDouble(dr["戳坐标"].ToString().Split(',')[1]);
+                        fi.SenderPlace.Type = 1;
+                        readResultSet.Add(fi);
                     }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine(e.StackTrace);
-                    failedList.Add(i + 1);
+                    if (fi != null)
+                    {
+                        failedList.Add(fi.CardId);
+                    }
                 }
             }
         }
 
         private void InsertToDatabase()
         {
-            
+            PostcardRepository pr = new PostcardRepository();
+            foreach (FullInfo fi in readResultSet)
+            {
+                try
+                {
+                    int senderPlaceId = pr.GetPlaceIdByName(fi.SenderPlace.CityName, 1);
+                    if (senderPlaceId == 0)
+                    {
+                        fi.CardContent.SenderPlaceId = senderPlaceId;
+                    }
+                    else
+                    {
+                        fi.SenderPlace.Count = 0;
+                        pr.InsertPlace(fi.SenderPlace);
+                        fi.CardContent.SenderPlaceId = pr.GetLatestPlaceId(1);
+                    }
+                    if (fi.PhotoPlace != null)
+                    {
+                        pr.InsertPlace(fi.PhotoPlace);
+                        fi.CardContent.PhotoPlaceId = pr.GetLatestPlaceId(0);
+                    }
+                    pr.InsertPostcard(fi.CardContent);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.Write(e.StackTrace);
+                    failedList.Add(fi.CardId);
+                }
+            }
+
         }
     }
 }

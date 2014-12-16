@@ -31,12 +31,15 @@ namespace Infofudan.XinjiangPostcard.Controllers
                     String filePath = HttpContext.Server.MapPath("../uploads/data/") + file.FileName;
                     file.SaveAs(filePath);
                     InsertProcessor ip = new InsertProcessor(filePath);
-                    List<int> failedRows = ip.InsertDataByFile();
+                    List<String> failedRows = ip.InsertDataByFile();
                     if (failedRows.Count == 0)
                     {
-
+                        return Json("All Success");
                     }
-                    else { }
+                    else 
+                    {
+                        
+                    }
 
                 }
             }
