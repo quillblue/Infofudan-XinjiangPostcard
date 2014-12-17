@@ -21,6 +21,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
         {
             List<Postcard> resultSet = new List<Postcard>();
             PostcardRepository pr = new PostcardRepository();
+
             return Json(resultSet, JsonRequestBehavior.AllowGet);
         }
 

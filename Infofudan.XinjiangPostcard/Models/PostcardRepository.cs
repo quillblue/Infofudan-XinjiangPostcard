@@ -12,11 +12,14 @@ namespace Infofudan.XinjiangPostcard.Models
         public void InsertPostcard(Postcard p)
         {
             db.Postcard.InsertOnSubmit(p);
+            UpdatePlaceCount(Convert.ToInt32(p.SenderPlaceId));
+            db.SubmitChanges();
         }
 
         public void InsertPlace(Place p)
         {
             db.Place.InsertOnSubmit(p);
+            db.SubmitChanges();
         }
 
         public IQueryable<Place> GetPlaceList(int mode)
@@ -41,7 +44,8 @@ namespace Infofudan.XinjiangPostcard.Models
 
         public int GetLatestPlaceId(int mode)
         {
-            return db.Place.LastOrDefault(p => p.Type == mode).Id;
+            return db.Place.Where(p => p.Type == mode).OrderByDescending(p=>p.Id).First().Id;
+            //return db.Place.LastOrDefault(p => p.Type == mode).Id;
         }
         
         public void UpdatePlaceCount(int placeId)
@@ -63,6 +67,11 @@ namespace Infofudan.XinjiangPostcard.Models
             {
                 Delete(p);
             }
+        }
+
+        public void Save()
+        {
+            db.SubmitChanges();
         }
     }
 }

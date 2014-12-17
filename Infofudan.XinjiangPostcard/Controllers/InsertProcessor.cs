@@ -12,16 +12,16 @@ namespace Infofudan.XinjiangPostcard.Controllers
     {
         private List<FullInfo> readResultSet;
         private String filePath;
-        private List<String> failedList;
+        private Dictionary<String, String> failedList;
 
         public InsertProcessor(String filepath)
         {
             this.filePath = filepath;
             readResultSet = new List<FullInfo>();
-            failedList = new List<String>();
+            failedList = new Dictionary<String, String>();
         }
 
-        public List<String> InsertDataByFile()
+        public Dictionary<String, String> InsertDataByFile()
         {
 
             ReadFile(filePath);
@@ -52,6 +52,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
                     if (dr["编号"].ToString() != "")
                     {
                         fi.CardId = dr["编号"].ToString();
+                        fi.CardContent.CardId = dr["编号"].ToString();
                         fi.CardContent.SenderName = dr["姓名"].ToString();
                         fi.CardContent.Message = dr["摘录"].ToString();
 
@@ -80,11 +81,9 @@ namespace Infofudan.XinjiangPostcard.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(e.StackTrace);
                     if (fi != null)
                     {
-                        failedList.Add(fi.CardId);
+                        failedList.Add(fi.CardId,e.Message);
                     }
                 }
             }
@@ -98,15 +97,15 @@ namespace Infofudan.XinjiangPostcard.Controllers
                 try
                 {
                     int senderPlaceId = pr.GetPlaceIdByName(fi.SenderPlace.CityName, 1);
-                    if (senderPlaceId != -1)
-                    {
-                        fi.CardContent.SenderPlaceId = senderPlaceId;
-                    }
-                    else
+                    if (senderPlaceId == -1)
                     {
                         fi.SenderPlace.Count = 0;
                         pr.InsertPlace(fi.SenderPlace);
                         fi.CardContent.SenderPlaceId = pr.GetLatestPlaceId(1);
+                    }
+                    else 
+                    {
+                        fi.CardContent.SenderPlaceId = senderPlaceId;
                     }
                     if (fi.PhotoPlace != null)
                     {
@@ -114,12 +113,13 @@ namespace Infofudan.XinjiangPostcard.Controllers
                         fi.CardContent.PhotoPlaceId = pr.GetLatestPlaceId(0);
                     }
                     pr.InsertPostcard(fi.CardContent);
+                    
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                     Console.Write(e.StackTrace);
-                    failedList.Add(fi.CardId);
+                    failedList.Add(fi.CardId,e.Message);
                 }
             }
 

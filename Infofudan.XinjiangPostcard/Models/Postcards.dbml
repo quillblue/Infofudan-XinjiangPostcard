@@ -2,12 +2,13 @@
   <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\PostcardDatabase.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PostcardDatabaseConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Postcard" Member="Postcard">
     <Type Name="Postcard">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PhotoPlaceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SenderPlaceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SenderName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ImageLink" Type="System.String" DbType="NChar(255)" CanBeNull="true" />
+      <Column Name="CardId" Type="System.String" DbType="NVARCHAR(10)" CanBeNull="true" />
       <Association Name="Place_Postcard" Member="Place" ThisKey="PhotoPlaceId" OtherKey="Id" Type="Place" IsForeignKey="true" />
       <Association Name="Place_Postcard1" Member="Place1" ThisKey="SenderPlaceId" OtherKey="Id" Type="Place" IsForeignKey="true" />
     </Type>

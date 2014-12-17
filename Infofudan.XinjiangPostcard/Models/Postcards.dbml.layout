@@ -2,26 +2,26 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Postcards">
   <DataContextMoniker Name="/PostcardsDataContext" />
   <nestedChildShapes>
-    <classShape Id="dd8dcc2c-3b04-45d6-86ed-71a8005fe9f6" absoluteBounds="7, 1.375, 2, 1.9631982421875">
+    <classShape Id="dd8dcc2c-3b04-45d6-86ed-71a8005fe9f6" absoluteBounds="7, 1.375, 2, 2.1554996744791666">
       <DataClassMoniker Name="/PostcardsDataContext/Postcard" />
       <nestedChildShapes>
-        <elementListCompartment Id="dbe6c7b8-c9e6-40df-b8d8-cd10ae358cb3" absoluteBounds="7.015, 1.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dbe6c7b8-c9e6-40df-b8d8-cd10ae358cb3" absoluteBounds="7.015, 1.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="8c6a47b5-10f5-43fd-a3c8-1f39a12bc428" absoluteBounds="4.5, 1.25, 2, 2.3478011067708335">
       <DataClassMoniker Name="/PostcardsDataContext/Place" />
       <nestedChildShapes>
-        <elementListCompartment Id="29c678de-9b26-4433-b3f5-d42112989d2d" absoluteBounds="4.515, 1.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="29c678de-9b26-4433-b3f5-d42112989d2d" absoluteBounds="4.515, 1.71, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.5 : 2.35659912109375); (7 : 2.35659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.5 : 2.81585267384847); (7 : 2.81585267384847)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PostcardsDataContext/Place/Place_Postcard" />
       <nodes>
         <classShapeMoniker Id="8c6a47b5-10f5-43fd-a3c8-1f39a12bc428" />
         <classShapeMoniker Id="dd8dcc2c-3b04-45d6-86ed-71a8005fe9f6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.5 : 1.80329956054688); (7 : 1.80329956054688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.5 : 2.03292633692424); (7 : 2.03292633692424)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PostcardsDataContext/Place/Place_Postcard1" />
       <nodes>
         <classShapeMoniker Id="8c6a47b5-10f5-43fd-a3c8-1f39a12bc428" />

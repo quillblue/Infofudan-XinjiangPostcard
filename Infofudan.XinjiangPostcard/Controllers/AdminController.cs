@@ -24,26 +24,25 @@ namespace Infofudan.XinjiangPostcard.Controllers
             {
                 if (!file.FileName.EndsWith("xls"))
                 {
-
+                    return Json("请上传Excel97-2003（.xls）文件!");
                 }
                 else
                 {
                     String filePath = HttpContext.Server.MapPath("../Uploads/data/") + DateTime.Now.ToFileTime().ToString()+".xls";
                     file.SaveAs(filePath);
                     InsertProcessor ip = new InsertProcessor(filePath);
-                    List<String> failedRows = ip.InsertDataByFile();
+                    Dictionary<String,String> failedRows = ip.InsertDataByFile();
                     if (failedRows.Count == 0)
                     {
-                        return Json("All Success");
+                        return Json("全部插入成功");
                     }
                     else 
                     {
-                        
+                        return Json(failedRows);
                     }
-
                 }
             }
-            return Json("Failed Somewhere",JsonRequestBehavior.AllowGet);
+            return Json("未上传任何文件！");
         }
 
 
