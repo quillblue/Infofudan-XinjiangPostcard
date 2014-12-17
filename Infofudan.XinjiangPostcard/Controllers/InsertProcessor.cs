@@ -17,6 +17,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
         public InsertProcessor(String filepath)
         {
             this.filePath = filepath;
+            readResultSet = new List<FullInfo>();
             failedList = new List<String>();
         }
 
@@ -97,7 +98,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
                 try
                 {
                     int senderPlaceId = pr.GetPlaceIdByName(fi.SenderPlace.CityName, 1);
-                    if (senderPlaceId == 0)
+                    if (senderPlaceId != -1)
                     {
                         fi.CardContent.SenderPlaceId = senderPlaceId;
                     }

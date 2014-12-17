@@ -11,5 +11,12 @@ namespace Infofudan.XinjiangPostcard.Models
         public Postcard CardContent;
         public Place SenderPlace;
         public Place PhotoPlace;
+
+        public FullInfo() 
+        {
+            CardContent = new Postcard();
+            SenderPlace = new Place();
+            PhotoPlace = new Place();
+        }
     }
 }

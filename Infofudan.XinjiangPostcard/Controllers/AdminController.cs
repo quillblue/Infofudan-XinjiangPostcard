@@ -13,7 +13,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View("AddMore");
         }
 
         [HttpPost]
@@ -28,7 +28,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
                 }
                 else
                 {
-                    String filePath = HttpContext.Server.MapPath("../uploads/data/") + file.FileName;
+                    String filePath = HttpContext.Server.MapPath("../Uploads/data/") + DateTime.Now.ToFileTime().ToString()+".xls";
                     file.SaveAs(filePath);
                     InsertProcessor ip = new InsertProcessor(filePath);
                     List<String> failedRows = ip.InsertDataByFile();
@@ -43,7 +43,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
 
                 }
             }
-            return View();
+            return Json("Failed Somewhere",JsonRequestBehavior.AllowGet);
         }
 
 

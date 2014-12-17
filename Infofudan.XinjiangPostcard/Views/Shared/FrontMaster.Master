@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>复旦大学2014年毕业晚会红毯入场仪式投票</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/hongtan.css">
+	<script language="javascript" src="js/jquery-1.7.2.min.js"></script>
+    <asp:ContentPlaceHolder ID="HeadPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+	
+</head>
+<body>
+	<div class="container">
+		<div class="banner">
+			<img src="images/banner.jpg" />
+		</div>
+		<div class="content">
+			<div class="left_page">
+                 <asp:ContentPlaceHolder ID="LeftPagePlaceHolder" runat="server"></asp:ContentPlaceHolder>
+			</div>
+			<div class="right_page">
+                <asp:ContentPlaceHolder ID="RightPagePlaceHolder" runat="server"></asp:ContentPlaceHolder>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+	</div>
+</body>
+</html>

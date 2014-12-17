@@ -40,6 +40,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -66,9 +70,6 @@
     <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -119,6 +120,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FullInfo.cs" />
     <Compile Include="Models\PostcardRepository.cs" />
     <Compile Include="Models\Postcards.designer.cs">
       <AutoGen>True</AutoGen>
@@ -126,6 +128,13 @@
       <DependentUpon>Postcards.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Shared\AdminMaster.Master.cs">
+      <DependentUpon>AdminMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Shared\AdminMaster.Master.designer.cs">
+      <DependentUpon>AdminMaster.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -135,7 +144,17 @@
     <Content Include="App_Data\PostcardDatabase_log.ldf">
       <DependentUpon>PostcardDatabase.mdf</DependentUpon>
     </Content>
+    <Content Include="css\admin.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\reset.css" />
     <Content Include="Global.asax" />
+    <Content Include="js\jquery-1.7.2.min.js" />
+    <Content Include="Views\Admin\AddMore.aspx" />
+    <Content Include="Views\Admin\CurrentVote.aspx" />
+    <Content Include="Views\Admin\Edit.aspx" />
+    <Content Include="Views\Admin\ManageNew.aspx" />
+    <Content Include="Views\Home\Vote.aspx" />
+    <Content Include="Views\Home\VoteItem.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -145,7 +164,9 @@
     </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Uploads\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -163,6 +184,8 @@
     <None Include="Models\Postcards.dbml.layout">
       <DependentUpon>Postcards.dbml</DependentUpon>
     </None>
+    <Content Include="Views\Shared\AdminMaster.Master" />
+    <Content Include="Views\Shared\FrontMaster.Master" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
