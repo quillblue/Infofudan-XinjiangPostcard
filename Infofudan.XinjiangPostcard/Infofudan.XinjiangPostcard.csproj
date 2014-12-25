@@ -153,8 +153,7 @@
     <Content Include="Views\Admin\CurrentVote.aspx" />
     <Content Include="Views\Admin\Edit.aspx" />
     <Content Include="Views\Admin\ManageNew.aspx" />
-    <Content Include="Views\Home\Vote.aspx" />
-    <Content Include="Views\Home\VoteItem.ascx" />
+    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

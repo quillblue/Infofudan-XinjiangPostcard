@@ -1,0 +1,72 @@
+html {
+	font-family: "微软雅黑",Arial,"san-serif";
+	font-size:14px;
+	background-color: #000;
+	
+}
+
+body{
+	line-height: 150%;
+	color: #fff;
+}
+
+
+.container{
+	margin: 0 auto;
+	width: 1200px;
+}
+
+.left{
+	float: left;
+	width: 829px;
+	height: 650px;
+	padding: 0 10px;
+	border-right: 1px #111 solid;
+}
+
+.right{
+	float: left;
+	width: 330px;
+	height: 650px;
+	padding: 0 10px;
+}
+
+	.title{
+		font-size: 30px;
+		margin-top: 30px;
+		margin-bottom: 20px;
+	}
+
+	.count{
+		margin-bottom: 30px;
+	}
+	.sideTitle{
+		font-size:18px;
+		border-bottom: 1px #0060b5 solid;
+	}
+
+		.sideTitleTab{
+			width: 90px;
+			background-color: #0060b5;
+			padding: 5px 10px;
+			float: left;
+
+		}
+
+	
+	.sideContentContainer{
+		border: 1px #0060b5 solid;
+		background-color: rgb(2, 28, 50);
+		margin-bottom: 30px;
+	}
+	.sideContent{
+		margin: 10px;
+	}
+
+	#intro p{
+		text-indent: 2em;
+	}
+
+	.clear{
+		clear: both;
+	}
