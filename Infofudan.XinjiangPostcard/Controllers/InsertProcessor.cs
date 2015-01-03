@@ -56,7 +56,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
                         fi.CardContent.SenderName = dr["姓名"].ToString();
                         fi.CardContent.Message = dr["摘录"].ToString();
 
-                        if (dr["地区(省)"].ToString() != "")
+                        if (dr["景坐标"].ToString() != "")
                         {
                             fi.PhotoPlace.IsDomestic = (dr["景国内外"].ToString() == "国内");
                             fi.PhotoPlace.CityName = dr["地区(省)"].ToString();
@@ -70,12 +70,18 @@ namespace Infofudan.XinjiangPostcard.Controllers
                         {
                             fi.PhotoPlace = null;
                         }
-
-                        fi.SenderPlace.IsDomestic = (dr["戳国内外"].ToString() == "国内");
-                        fi.SenderPlace.CityName = dr["邮戳地"].ToString();
-                        fi.SenderPlace.Lon = Convert.ToDouble(dr["戳坐标"].ToString().Split(',')[0]);
-                        fi.SenderPlace.Lat = Convert.ToDouble(dr["戳坐标"].ToString().Split(',')[1]);
-                        fi.SenderPlace.Type = 1;
+                        if (dr["邮戳地"].ToString() != "")
+                        {
+                            fi.SenderPlace.IsDomestic = (dr["戳国内外"].ToString() == "国内");
+                            fi.SenderPlace.CityName = dr["邮戳地"].ToString();
+                            fi.SenderPlace.Lon = Convert.ToDouble(dr["戳坐标"].ToString().Split(',')[0]);
+                            fi.SenderPlace.Lat = Convert.ToDouble(dr["戳坐标"].ToString().Split(',')[1]);
+                            fi.SenderPlace.Type = 1;
+                        }
+                        else
+                        {
+                            fi.SenderPlace = null;
+                        }
                         readResultSet.Add(fi);
                     }
                 }

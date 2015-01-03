@@ -21,7 +21,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
         {
             List<Postcard> resultSet = new List<Postcard>();
             PostcardRepository pr = new PostcardRepository();
-
+            Dictionary<string, double[]> geoRecord = new Dictionary<string, double[]>();
             return Json(resultSet, JsonRequestBehavior.AllowGet);
         }
 
@@ -30,7 +30,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
         {
             PostcardRepository pr = new PostcardRepository();
             IQueryable<Place> resultSet = pr.GetPlaceList(id);
-            return Json(resultSet,JsonRequestBehavior.AllowGet);
+            return Json(resultSet, JsonRequestBehavior.AllowGet);
         }
 
         //[HttpPost]
@@ -42,7 +42,33 @@ namespace Infofudan.XinjiangPostcard.Controllers
             return View();
         }
 
-        
+        //[HttpPost]
+        public ActionResult GetGeoRecord(int id)
+        {
+            PostcardRepository pr = new PostcardRepository();
+            IQueryable<Place> resultSet = pr.GetPlaceList(id);
+            Dictionary<String, double[]> geoRecord = new Dictionary<string, double[]>();
+            foreach (Place p in resultSet)
+            {
+                try
+                {
+                    double[] lonLat = { p.Lon, p.Lat };
+                    if (p.Type == 1)
+                    {
+                        geoRecord.Add(p.CityName, lonLat);
+                    }
+                    else
+                    {
+                        geoRecord.Add((p.CityName + p.Detail).Trim(), lonLat);
+                    }
+                }
+                catch (Exception e){
+                    Console.Write(e.Message);
+                }
+
+            }
+            return Json(geoRecord, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

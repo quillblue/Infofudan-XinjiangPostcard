@@ -18,9 +18,8 @@ body{
 
 .left{
 	float: left;
-	width: 829px;
+	width: 830px;
 	padding: 0 10px;
-	border-right: 1px #111 solid;
 }
 
 	.map{

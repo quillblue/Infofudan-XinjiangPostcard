@@ -1,46 +1,36 @@
+var MAPMODE=0;
+
 $(document).ready(function(){
 	var myChart=echarts.init(document.getElementById('map'));
 	
 	myChart.setOption(option);
 });
 
-var option = {
+var effect = {
+    show: true,
+    scaleSize: 1,
+    period: 15,             // 运动周期，无单位，值越大越慢
+    color: '#fff',
+    shadowColor: 'rgba(220,220,220,4)',
+    shadowBlur : 1
+};
+
+option = {
     backgroundColor: '#000',
     color: ['gold','aqua','lime'],
-    title : {
-        text: '模拟迁徙',
-        subtext:'数据纯属虚构',
-        x:'center',
-        textStyle : {
-            color: '#fff'
-        }
-    },
     tooltip : {
         trigger: 'item',
         formatter: '{b}'
-    },
-    legend: {
-        orient: 'vertical',
-        x:'left',
-        data:['北京 Top10', '上海 Top10', '广州 Top10'],
-        selectedMode: 'single',
-        selected:{
-            '上海 Top10' : false,
-            '广州 Top10' : false
-        },
-        textStyle : {
-            color: '#fff'
-        }
     },
     toolbox: {
         show : true,
         orient : 'vertical',
         x: 'right',
-        y: 'center',
+        y: 'top',
         feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            restore : {show: true},
+            mark : {show: false},
+            dataView : {show: false, readOnly: false},
+            restore : {show: false},
             saveAsImage : {show: true}
         }
     },
@@ -352,7 +342,7 @@ var option = {
             }
         },
         {
-            name: '北京 Top10',
+            name: '寄出地 Top10',
             type: 'map',
             mapType: 'china',
             data:[],
@@ -375,8 +365,8 @@ var option = {
                     }
                 },
                 data : [
-                    [{name:'北京'}, {name:'上海',value:95}],
-                    [{name:'北京'}, {name:'广州',value:90}],
+                    [{name:'上海',value:95},{name:'北京'} ],
+                    [{name:'广州',value:90},{name:'北京'}],
                     [{name:'北京'}, {name:'大连',value:80}],
                     [{name:'北京'}, {name:'南宁',value:70}],
                     [{name:'北京'}, {name:'南昌',value:60}],
@@ -418,140 +408,8 @@ var option = {
                 ]
             }
         },
-        {
-            name: '上海 Top10',
-            type: 'map',
-            mapType: 'china',
-            data:[],
-            markLine : {
-                smooth:true,
-                effect : {
-                    show: true,
-                    scaleSize: 1,
-                    period: 30,
-                    color: '#fff',
-                    shadowBlur: 10
-                },
-                itemStyle : {
-                    normal: {
-                        borderWidth:1,
-                        lineStyle: {
-                            type: 'solid',
-                            shadowBlur: 10
-                        }
-                    }
-                },
-                data : [
-                    [{name:'上海'},{name:'包头',value:95}],
-                    [{name:'上海'},{name:'昆明',value:90}],
-                    [{name:'上海'},{name:'广州',value:80}],
-                    [{name:'上海'},{name:'郑州',value:70}],
-                    [{name:'上海'},{name:'长春',value:60}],
-                    [{name:'上海'},{name:'重庆',value:50}],
-                    [{name:'上海'},{name:'长沙',value:40}],
-                    [{name:'上海'},{name:'北京',value:30}],
-                    [{name:'上海'},{name:'丹东',value:20}],
-                    [{name:'上海'},{name:'大连',value:10}]
-                ]
-            },
-            markPoint : {
-                symbol:'emptyCircle',
-                symbolSize : function (v){
-                    return 10 + v/10
-                },
-                effect : {
-                    show: true,
-                    shadowBlur : 0
-                },
-                itemStyle:{
-                    normal:{
-                        label:{show:false}
-                    },
-                    emphasis: {
-                        label:{position:'top'}
-                    }
-                },
-                data : [
-                    {name:'包头',value:95},
-                    {name:'昆明',value:90},
-                    {name:'广州',value:80},
-                    {name:'郑州',value:70},
-                    {name:'长春',value:60},
-                    {name:'重庆',value:50},
-                    {name:'长沙',value:40},
-                    {name:'北京',value:30},
-                    {name:'丹东',value:20},
-                    {name:'大连',value:10}
-                ]
-            }
-        },
-        {
-            name: '广州 Top10',
-            type: 'map',
-            mapType: 'china',
-            data:[],
-            markLine : {
-                smooth:true,
-                effect : {
-                    show: true,
-                    scaleSize: 1,
-                    period: 30,
-                    color: '#fff',
-                    shadowBlur: 10
-                },
-                itemStyle : {
-                    normal: {
-                        borderWidth:1,
-                        lineStyle: {
-                            type: 'solid',
-                            shadowBlur: 10
-                        }
-                    }
-                },
-                data : [
-                    [{name:'广州'},{name:'福州',value:95}],
-                    [{name:'广州'},{name:'太原',value:90}],
-                    [{name:'广州'},{name:'长春',value:80}],
-                    [{name:'广州'},{name:'重庆',value:70}],
-                    [{name:'广州'},{name:'西安',value:60}],
-                    [{name:'广州'},{name:'成都',value:50}],
-                    [{name:'广州'},{name:'常州',value:40}],
-                    [{name:'广州'},{name:'北京',value:30}],
-                    [{name:'广州'},{name:'北海',value:20}],
-                    [{name:'广州'},{name:'海口',value:10}]
-                ]
-            },
-            markPoint : {
-                symbol:'emptyCircle',
-                symbolSize : function (v){
-                    return 10 + v/10
-                },
-                effect : {
-                    show: true,
-                    shadowBlur : 0
-                },
-                itemStyle:{
-                    normal:{
-                        label:{show:false}
-                    },
-                    emphasis: {
-                        label:{position:'top'}
-                    }
-                },
-                data : [
-                    {name:'福州',value:95},
-                    {name:'太原',value:90},
-                    {name:'长春',value:80},
-                    {name:'重庆',value:70},
-                    {name:'西安',value:60},
-                    {name:'成都',value:50},
-                    {name:'常州',value:40},
-                    {name:'北京',value:30},
-                    {name:'北海',value:20},
-                    {name:'海口',value:10}
-                ]
-            }
-        }
     ]
-	};
+};
+                    
+
 

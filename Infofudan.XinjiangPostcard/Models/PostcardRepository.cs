@@ -24,7 +24,14 @@ namespace Infofudan.XinjiangPostcard.Models
 
         public IQueryable<Place> GetPlaceList(int mode)
         {
-            return db.Place.Where(p => p.Type == mode);
+            bool isDomestic = mode == 0;
+            return db.Place.Where(p => p.IsDomestic == isDomestic);
+        }
+
+        public IQueryable<Place> GetPlaceListByType(int type, int mode)
+        {
+            bool isDomestic = mode == 0;
+            return db.Place.Where(p => p.IsDomestic == isDomestic&&p.Type==type);
         }
 
         public int GetPlaceIdByName(String name, int mode)
