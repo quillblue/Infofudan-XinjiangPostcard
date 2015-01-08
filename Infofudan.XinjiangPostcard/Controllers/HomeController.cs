@@ -17,36 +17,38 @@ namespace Infofudan.XinjiangPostcard.Controllers
             return View();
         }
 
-        public ActionResult GetData(int id)
+        [HttpPost]
+        public ActionResult GetSenderData(int id)
         {
-            List<Postcard> resultSet = new List<Postcard>();
             PostcardRepository pr = new PostcardRepository();
-            Dictionary<string, double[]> geoRecord = new Dictionary<string, double[]>();
-            return Json(resultSet, JsonRequestBehavior.AllowGet);
+            IQueryable<Place> resultSet = pr.GetPlaceListByType(1, id);
+            List<MarkedCity> returnSet = new List<MarkedCity>();
+            foreach (Place p in resultSet)
+            {
+                returnSet.Add(new MarkedCity(p));
+            }
+            return Json(returnSet);
         }
 
         //[HttpPost]
-        public ActionResult GetMarkPoint(int id)
+        public ActionResult GetPhotoData(int id)
         {
             PostcardRepository pr = new PostcardRepository();
-            IQueryable<Place> resultSet = pr.GetPlaceList(id);
-            return Json(resultSet, JsonRequestBehavior.AllowGet);
+            IQueryable<Place> resultSet = pr.GetPlaceListByType(0, id);
+            List<MarkedCity> returnSet = new List<MarkedCity>();
+            foreach (Place p in resultSet)
+            {
+                returnSet.Add(new MarkedCity(p));
+            }
+            return Json(returnSet, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        public ActionResult GetMarkLine(int id)
+        [HttpPost]
+        public ActionResult GetGeoRecord()
         {
             PostcardRepository pr = new PostcardRepository();
-            IQueryable<Place> resultSet = pr.GetPlaceList(id);
-
-            return View();
-        }
-
-        //[HttpPost]
-        public ActionResult GetGeoRecord(int id)
-        {
-            PostcardRepository pr = new PostcardRepository();
-            IQueryable<Place> resultSet = pr.GetPlaceList(id);
+            IQueryable<Place> resultSet = pr.GetPlaceList();
+            String geoRecordStr = "{'拜城':[81.901235,42.045285]";
             Dictionary<String, double[]> geoRecord = new Dictionary<string, double[]>();
             foreach (Place p in resultSet)
             {
@@ -56,18 +58,21 @@ namespace Infofudan.XinjiangPostcard.Controllers
                     if (p.Type == 1)
                     {
                         geoRecord.Add(p.CityName, lonLat);
+                        geoRecordStr += ",'" + p.CityName + "':[" + p.Lon + "," + p.Lat + "]";
                     }
                     else
                     {
+                        geoRecordStr += ",'" + p.CityName+p.Detail + "':[" + p.Lon + "," + p.Lat + "]";
                         geoRecord.Add((p.CityName + p.Detail).Trim(), lonLat);
                     }
                 }
                 catch (Exception e){
                     Console.Write(e.Message);
                 }
-
+                
             }
-            return Json(geoRecord, JsonRequestBehavior.AllowGet);
+            geoRecordStr += "}";
+            return Json(geoRecordStr);
         }
 
     }

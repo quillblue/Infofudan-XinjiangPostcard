@@ -121,6 +121,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FullInfo.cs" />
+    <Compile Include="Models\MarkedCity.cs" />
     <Compile Include="Models\PostcardRepository.cs" />
     <Compile Include="Models\Postcards.designer.cs">
       <AutoGen>True</AutoGen>

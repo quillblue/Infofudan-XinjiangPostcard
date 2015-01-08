@@ -22,16 +22,15 @@ namespace Infofudan.XinjiangPostcard.Models
             db.SubmitChanges();
         }
 
-        public IQueryable<Place> GetPlaceList(int mode)
+        public IQueryable<Place> GetPlaceList()
         {
-            bool isDomestic = mode == 0;
-            return db.Place.Where(p => p.IsDomestic == isDomestic);
+            return db.Place;
         }
 
         public IQueryable<Place> GetPlaceListByType(int type, int mode)
         {
             bool isDomestic = mode == 0;
-            return db.Place.Where(p => p.IsDomestic == isDomestic&&p.Type==type);
+            return db.Place.Where(p => p.IsDomestic == isDomestic && p.Type == type).OrderByDescending(p => p.Count);
         }
 
         public int GetPlaceIdByName(String name, int mode)

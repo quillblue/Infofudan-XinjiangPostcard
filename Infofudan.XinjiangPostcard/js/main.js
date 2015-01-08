@@ -1,10 +1,55 @@
 var MAPMODE=0;
+var CARDSHOWN=true;
+var myChart=new Object();
 
 $(document).ready(function(){
-	var myChart=echarts.init(document.getElementById('map'));
-	
-	myChart.setOption(option);
+    myChart=echarts.init(document.getElementById('map'));
+    myChart.showLoading({
+        text: '读取数据中...', 
+    });
+    getData(function(){
+        myChart.hideLoading();
+        myChart.setOption(option);
+    });
+    $('#mapChange').click(function(){
+        switchMapMode();
+    });
+    $('#cardDisplaySwitch').click(function(){
+        if(CARDSHOWN){
+            $('#map').hide();
+            $('#cardWall').show();
+            $('#cardDisplaySwitch').html("隐藏来信摘录");
+            $('#cardDisplaySwitch').addClass("sideBtnOn");
+        }
+        else{
+            $('#cardWall').hide();
+            $('#map').show();
+            $('#cardDisplaySwitch').html("显示来信摘录");
+            $('#cardDisplaySwitch').removeClass("sideBtnOn");
+        }
+        CARDSHOWN=!CARDSHOWN;
+    })
 });
+
+function switchMapMode(){
+    MAPMODE=1-MAPMODE;
+    
+    if(MAPMODE==1){
+        for(var i=0;i<option.series.length;i++){
+            option.series[i].mapType='world';
+        }
+    }
+    else{
+        for(var i=0;i<option.series.length;i++){
+            option.series[i].mapType='china';
+        }
+    }
+    option.series[0].markLine.data=markedLineData[MAPMODE];
+    option.series[1].markLine.data=markedLineTopData[MAPMODE];
+    option.series[2].markPoint.data=markedPointData[MAPMODE];
+    myChart=echarts.init(document.getElementById('map'));
+    myChart.setOption(option);
+}
 
 var effect = {
     show: true,
@@ -15,9 +60,9 @@ var effect = {
     shadowBlur : 1
 };
 
-option = {
+var option = {
     backgroundColor: '#000',
-    color: ['gold','aqua','lime'],
+    color: ['gold','aqua'],
     tooltip : {
         trigger: 'item',
         formatter: '{b}'
@@ -32,17 +77,18 @@ option = {
         }
     },
     dataRange: {
+        show:false,
         min : 0,
-        max : 100,
+        max : 30,
         calculable : true,
-        color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
+        color: ['aqua','aqua'],
         textStyle:{
             color:'#fff'
         }
     },
     series : [
         {
-            name: '全国',
+            name: '基础线',
             type: 'map',
             roam: true,
             hoverable: false,
@@ -50,7 +96,7 @@ option = {
             itemStyle:{
                 normal:{
                     borderColor:'rgba(100,149,237,1)',
-                    borderWidth:0.5,
+                    borderWidth:0.3,
                     areaStyle:{
                         color: '#000'
                     }
@@ -59,18 +105,18 @@ option = {
             data:[],
             markLine : {
                 smooth:true,
-                symbol: ['none', 'circle'],  
+                symbol: ['circle', 'circle'],  
                 symbolSize : 1,
                 itemStyle : {
                     normal: {
                         color:'#fff',
-                        borderWidth:1,
+                        borderWidth:0.6,
                         borderColor:'rgba(30,144,255,0.5)'
                     }
                 },
-                data : markLineData
+                data:[]
             },
-            geoCoord: GEORECORD
+            geoCoord:[] 
         },
         {
             name: '寄出地 Top10',
@@ -79,39 +125,29 @@ option = {
             data:[],
             markLine : {
                 smooth:true,
+                symbol: ['none', 'none'],
                 effect : {
                     show: true,
                     scaleSize: 1,
-                    period: 30,
+                    period: 15,
                     color: '#fff',
-                    shadowBlur: 10
+                    shadowBlur: 2
                 },
                 itemStyle : {
                     normal: {
-                        borderWidth:1,
+                        borderWidth:0.6,
                         lineStyle: {
                             type: 'solid',
                             shadowBlur: 10
                         }
                     }
                 },
-                data : [
-                    [{name:'上海',value:95},{name:'北京'} ],
-                    [{name:'广州',value:90},{name:'北京'}],
-                    [{name:'北京'}, {name:'大连',value:80}],
-                    [{name:'北京'}, {name:'南宁',value:70}],
-                    [{name:'北京'}, {name:'南昌',value:60}],
-                    [{name:'北京'}, {name:'拉萨',value:50}],
-                    [{name:'北京'}, {name:'长春',value:40}],
-                    [{name:'北京'}, {name:'包头',value:30}],
-                    [{name:'北京'}, {name:'重庆',value:20}],
-                    [{name:'北京'}, {name:'常州',value:10}]
-                ]
+                data : []
             },
             markPoint : {
                 symbol:'emptyCircle',
                 symbolSize : function (v){
-                    return 10 + v/10
+                    return 5 + v/300
                 },
                 effect : {
                     show: true,
@@ -125,20 +161,25 @@ option = {
                         label:{position:'top'}
                     }
                 },
-                data : [
-                    {name:'上海',value:95},
-                    {name:'广州',value:90},
-                    {name:'大连',value:80},
-                    {name:'南宁',value:70},
-                    {name:'南昌',value:60},
-                    {name:'拉萨',value:50},
-                    {name:'长春',value:40},
-                    {name:'包头',value:30},
-                    {name:'重庆',value:20},
-                    {name:'常州',value:10}
-                ]
+                data :[{name:'拜城',value:1461}]
             }
         },
+        {
+            name: '风景点',
+            type: 'map',
+            mapType: 'china',
+
+            data : [],
+            markPoint : {
+                symbolSize: 2,
+                large: true,
+                effect : {
+                    show: true,
+                    period:10
+                },
+                data : [{name:"上海中国馆",value:1}]
+            }
+        }
     ]
 };
                     

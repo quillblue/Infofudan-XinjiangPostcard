@@ -8,6 +8,15 @@ html {
 body{
 	line-height: 150%;
 	color: #fff;
+	scrollbar-arrow-color: #222; /*图6,三角箭头的颜色*/
+	scrollbar-face-color: #222; /*图5,立体滚动条的颜色*/
+	scrollbar-3dlight-color: #222; /*图1,立体滚动条亮边的颜*/
+	scrollbar-highlight-color: #000; /*图2,滚动条空白部分的颜色*/
+	scrollbar-shadow-color: #222; /*图3,立体滚动条阴影的颜色*/
+	scrollbar-darkshadow-color: #222; /*图4,立体滚动条强阴影的颜色*/
+	scrollbar-track-color: #000; /*图7,立体滚动条背景颜色*/
+	scrollbar-base-color:#000; /*滚动条的基本颜色*/
+	Cursor:url(mouse.cur); /*自定义个性鼠标*/
 }
 
 
@@ -18,17 +27,21 @@ body{
 
 .left{
 	float: left;
-	width: 830px;
+	width: 860px;
 	padding: 0 10px;
 }
 
-	.map{
+	.leftContent{
 		height: 600px;
+	}
+
+	.cardWall{
+		overflow-y:scroll;
 	}
 
 .right{
 	float: left;
-	width: 330px;
+	width: 300px;
 	height: 650px;
 	padding: 0 10px;
 }
@@ -40,23 +53,55 @@ body{
 	}
 
 	.count{
-		margin-bottom: 30px;
+		margin-bottom: 20px;
 	}
 
 		.total{
-			width: 330px;
+			width: 300px;
 			margin-top: 10px;
 			text-align: center;
 		}
 		.totalNum{
 			font-size: 28px;
 			margin: 0 5px;
-			color: #0060b5;
+			color: #00FAFA;
 		}
+
+	.sideMenu{
+		font-size:18px;
+		margin-top:30px;
+	}
+
+		.sideBtn{
+			width: 128px;
+			line-height: 180%;
+			background-color: #0060b5;
+			
+			padding: 5px 10px;
+			float: left;
+			text-align: center;
+			text-decoration: none;
+			color:#000;
+		}
+
+			.sideBtnLeft{
+				margin-right: 2px;
+			}
+
+			.sideBtnRight{
+				margin-left: 2px;
+			}
+
+		.sideBtn:hover, .sideBtnOn{
+			background-color: #0ff;
+			box-shadow:0px 0px 10px #0ff;
+		}
+
+
 
 	.sideTitle{
 		font-size:18px;
-		border-bottom: 1px #0060b5 solid;
+		margin-top:30px;
 	}
 
 		.sideTitleTab{
@@ -65,21 +110,23 @@ body{
 			padding: 5px 10px;
 			float: left;
 			text-align: center;
+			color:#000;
 		}
 
 	
 	.sideContentContainer{
 		border: 1px #0060b5 solid;
-		background-color: rgb(2, 28, 50);
+		background-color: rgba(2, 28, 50,0.2);
 		margin-bottom: 30px;
 
 	}
 	.sideContent{
-		margin: 10px;
+		margin: 15px;
 	}
 
 	#intro p{
 		text-indent: 2em;
+		margin-bottom: 1em;
 	}
 
 	.clear{
