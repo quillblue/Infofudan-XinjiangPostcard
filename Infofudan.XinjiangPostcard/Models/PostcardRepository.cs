@@ -13,6 +13,7 @@ namespace Infofudan.XinjiangPostcard.Models
         {
             db.Postcard.InsertOnSubmit(p);
             UpdatePlaceCount(Convert.ToInt32(p.SenderPlaceId));
+            UpdatePlaceCount(Convert.ToInt32(p.PhotoPlaceId));
             db.SubmitChanges();
         }
 
@@ -35,7 +36,15 @@ namespace Infofudan.XinjiangPostcard.Models
 
         public int GetPlaceIdByName(String name, int mode)
         {
-            Place pl = db.Place.FirstOrDefault(p => p.Type == mode && p.CityName == name);
+            Place pl = null;
+            if (mode == 1)
+            {
+                pl = db.Place.FirstOrDefault(p => p.Type == mode && p.CityName == name);
+            }
+            else
+            {
+                pl = db.Place.FirstOrDefault(p => p.Type == mode && p.CityName+p.Detail == name);
+            }
             if (pl == null)
             {
                 return -1;
@@ -50,10 +59,10 @@ namespace Infofudan.XinjiangPostcard.Models
 
         public int GetLatestPlaceId(int mode)
         {
-            return db.Place.Where(p => p.Type == mode).OrderByDescending(p=>p.Id).First().Id;
+            return db.Place.Where(p => p.Type == mode).OrderByDescending(p => p.Id).First().Id;
             //return db.Place.LastOrDefault(p => p.Type == mode).Id;
         }
-        
+
         public void UpdatePlaceCount(int placeId)
         {
             Place pl = db.Place.FirstOrDefault(p => p.Id == placeId);

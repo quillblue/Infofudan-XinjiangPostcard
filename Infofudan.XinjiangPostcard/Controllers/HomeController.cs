@@ -30,7 +30,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
             return Json(returnSet);
         }
 
-        //[HttpPost]
+        [HttpPost]
         public ActionResult GetPhotoData(int id)
         {
             PostcardRepository pr = new PostcardRepository();
@@ -40,7 +40,7 @@ namespace Infofudan.XinjiangPostcard.Controllers
             {
                 returnSet.Add(new MarkedCity(p));
             }
-            return Json(returnSet, JsonRequestBehavior.AllowGet);
+            return Json(returnSet);
         }
 
         [HttpPost]

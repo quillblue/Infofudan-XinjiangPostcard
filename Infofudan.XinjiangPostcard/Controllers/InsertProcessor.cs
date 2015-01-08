@@ -113,10 +113,20 @@ namespace Infofudan.XinjiangPostcard.Controllers
                     {
                         fi.CardContent.SenderPlaceId = senderPlaceId;
                     }
+
                     if (fi.PhotoPlace != null)
                     {
-                        pr.InsertPlace(fi.PhotoPlace);
-                        fi.CardContent.PhotoPlaceId = pr.GetLatestPlaceId(0);
+                        int photoPlaceId = pr.GetPlaceIdByName(fi.SenderPlace.CityName+fi.SenderPlace.Detail, 0);
+                        if (photoPlaceId == -1)
+                        {
+                            fi.SenderPlace.Count = 0;
+                            pr.InsertPlace(fi.PhotoPlace);
+                            fi.CardContent.PhotoPlaceId = pr.GetLatestPlaceId(0);
+                        }
+                        else
+                        {
+                            fi.CardContent.PhotoPlaceId = photoPlaceId;
+                        }
                     }
                     pr.InsertPostcard(fi.CardContent);
                     
