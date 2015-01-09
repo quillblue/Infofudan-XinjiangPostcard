@@ -1,4 +1,4 @@
-var SENDER_URL="/GetSenderData/";
+﻿var SENDER_URL="/GetSenderData/";
 var PHOTO_URL="/GetPhotoData/";
 var GEORECORD_URL="/GetGeoRecord/";
 var IMAGE_URL="/Uploads/images/";
@@ -146,7 +146,7 @@ var option = {
             itemStyle:{
                 normal:{
                     borderColor:'rgba(100,149,237,1)',
-                    borderWidth:0.3,
+                    borderWidth:0.5,
                     areaStyle:{
                         color: '#000'
                     }
@@ -160,7 +160,7 @@ var option = {
                 itemStyle : {
                     normal: {
                         color:'#fff',
-                        borderWidth:0.6,
+                        borderWidth:0.7,
                         borderColor:'rgba(30,144,255,0.5)'
                     }
                 },
@@ -185,7 +185,7 @@ var option = {
                 },
                 itemStyle : {
                     normal: {
-                        borderWidth:0.6,
+                        borderWidth:0.7,
                         lineStyle: {
                             type: 'solid',
                             shadowBlur: 10

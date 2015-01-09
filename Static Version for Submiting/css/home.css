@@ -1,0 +1,195 @@
+html {
+	font-family: "微软雅黑",Arial,"san-serif";
+	font-size:14px;
+	background-color: #000;
+	
+}
+
+body{
+	line-height: 150%;
+	color: #fff;
+	scrollbar-arrow-color: #222; /*图6,三角箭头的颜色*/
+	scrollbar-face-color: #222; /*图5,立体滚动条的颜色*/
+	scrollbar-3dlight-color: #222; /*图1,立体滚动条亮边的颜*/
+	scrollbar-highlight-color: #000; /*图2,滚动条空白部分的颜色*/
+	scrollbar-shadow-color: #222; /*图3,立体滚动条阴影的颜色*/
+	scrollbar-darkshadow-color: #222; /*图4,立体滚动条强阴影的颜色*/
+	scrollbar-track-color: #000; /*图7,立体滚动条背景颜色*/
+	scrollbar-base-color:#000; /*滚动条的基本颜色*/
+	Cursor:url(mouse.cur); /*自定义个性鼠标*/
+}
+
+
+.container{
+	margin: 0 auto;
+	width: 1200px;
+}
+
+.left{
+	float: left;
+	width: 860px;
+	padding: 0 10px;
+}
+
+	.leftContent{
+		height: 600px;
+	}
+
+	.cardWall{
+		overflow-y:scroll;
+	}
+
+	#cardList{
+		position: relative;
+	}
+
+		#cardList li{
+			position: absolute; 
+			background: #000;
+			border: solid 2px #333;
+			box-shadow: 1px 1px 3px #666;
+			text-align: center; 
+			padding: 0px; 
+			left: 0px; 
+			top: 0;
+			-webkit-transition: all .7s ease-out .1s;
+			-moz-transition: all .7s ease-out; 
+			-o-transition: all .7s ease-out .1s;
+			transition: all .7s ease-out .1s
+		}
+
+
+		#cardList img{
+			width: 200px; 
+			height: auto; 
+			display: block; 
+			border: 0
+		}
+
+.right{
+	float: left;
+	width: 300px;
+	padding: 0 10px;
+}
+
+	.title{
+		font-size: 30px;
+		margin-top: 30px;
+		margin-bottom: 20px;
+	}
+
+	.count{
+		margin-bottom: 20px;
+	}
+
+		.total{
+			width: 190px;
+			margin-top: 10px;
+			text-align: right;
+		}
+		.totalNum{
+			font-size: 28px;
+			margin: 0 5px;
+			text-align: right;
+			color: #00FAFA;
+		}
+
+	.sideMenu{
+		font-size:18px;
+		margin-top:30px;
+	}
+
+		.sideBtn{
+			width: 128px;
+			line-height: 180%;
+			background-color: #0060b5;
+			
+			padding: 5px 10px;
+			float: left;
+			text-align: center;
+			text-decoration: none;
+			color:#000;
+		}
+
+			.sideBtnLeft{
+				margin-right: 2px;
+			}
+
+			.sideBtnRight{
+				margin-left: 2px;
+			}
+
+		.sideBtn:hover, .sideBtnOn{
+			background-color: #0ff;
+			box-shadow:0px 0px 10px #0ff;
+		}
+
+
+
+	.sideTitle{
+		font-size:18px;
+		margin-top:30px;
+	}
+
+		.sideTitleTab{
+			width: 90px;
+			background-color: #0060b5;
+			padding: 5px 10px;
+			float: left;
+			text-align: center;
+			color:#000;
+		}
+
+	
+	.sideContentContainer{
+		border: 1px #0060b5 solid;
+		background-color: rgba(2, 28, 50,0.2);
+		margin-bottom: 15px;
+
+	}
+	.sideContent{
+		margin: 15px;
+	}
+
+	#intro p{
+		text-indent: 2em;
+		margin-bottom: 0.5em;
+	}
+
+	.author{
+		color:#999;
+		margin-bottom: 0;
+		line-height: 130%;
+	}
+
+	.clear{
+		clear: both;
+	}
+
+
+::-webkit-scrollbar/*整体部分*/
+{
+	width: 10px;
+	height:10px;
+}
+
+::-webkit-scrollbar-track/*滑动轨道*/
+{
+	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+	border-radius: 0px;
+	background: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-thumb/*滑块*/
+{
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 3px rgba(100,100,100,0.2);
+	background: rgba(100,100,100,0.2);
+}
+
+::-webkit-scrollbar-thumb:hover/*滑块效果*/
+{
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 5px rgba(100,100,100,0.2);
+	background: rgba(100,100,100,0.4);
+}

@@ -1,4 +1,4 @@
-var MAPMODE=0;
+﻿var MAPMODE=0;
 var TOTALNUM=0;
 var CARDSHOWN=true;
 var myChart=new Object();
@@ -21,7 +21,9 @@ $(document).ready(function(){
 
     //bind functions
     $('#mapChange').click(function(){
-        switchMapMode();
+        if(CARDSHOWN){
+	    switchMapMode();
+	}
     });
     $('#cardDisplaySwitch').click(function(){
         if(CARDSHOWN){
