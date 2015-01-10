@@ -1,5 +1,6 @@
 ﻿var MAPMODE=0;
-var TOTALNUM=0;
+var TOTALNUM_DIS=0;
+var TOTALNUM=1356;
 var CARDSHOWN=true;
 var myChart=new Object();
 
@@ -12,7 +13,7 @@ $(document).ready(function(){
     //eChart initing
     myChart=echarts.init(document.getElementById('map'));
     myChart.showLoading({
-        text: '读取数据中...', 
+        text: '加载中...', 
     });
     getData(function(){
         myChart.hideLoading();
@@ -43,12 +44,13 @@ $(document).ready(function(){
     })
 
     var add=setInterval(function(){
-        if(TOTALNUM==1462){
-            clearInterval(add);
+        if(TOTALNUM_DIS<TOTALNUM){
+            $('.totalNum').html(TOTALNUM_DIS);
+           TOTALNUM_DIS++;
+
         }
         else{
-           $('.totalNum').html(TOTALNUM);
-           TOTALNUM++; 
+           clearInterval(add); 
         }
     },5);
 
@@ -57,7 +59,8 @@ $(document).ready(function(){
     window.onresize = function() {
         reArrange();
         if(document.documentElement.clientHeight>600){
-            $('#cardWall').css("height",document.documentElement.clientHeight+"px")
+	    $('#map').css("height",document.documentElement.clientHeight+"px");
+            $('#cardWall').css("height",document.documentElement.clientHeight+"px");
         }
     };
 });
