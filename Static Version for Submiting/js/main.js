@@ -30,21 +30,25 @@ $(document).ready(function(){
         if(CARDSHOWN){
             $('#map').hide();
             $('#cardWall').show();
-            $('#cardDisplaySwitch').html("隐藏来信摘录");
+            $('#cardDisplaySwitch').html("隐藏明信片墙");
             $('#cardDisplaySwitch').addClass("sideBtnOn");
             reArrange();
         }
         else{
             $('#cardWall').hide();
             $('#map').show();
-            $('#cardDisplaySwitch').html("显示来信摘录");
+            $('#cardDisplaySwitch').html("显示明信片墙");
             $('#cardDisplaySwitch').removeClass("sideBtnOn");
         }
         CARDSHOWN=!CARDSHOWN;
-    })
+    });
+
+    $('#exitBtn').click(function(){
+        exitLargeDisplay();
+    });
 
     var add=setInterval(function(){
-        if(TOTALNUM_DIS<TOTALNUM){
+        if(TOTALNUM_DIS<=TOTALNUM){
             $('.totalNum').html(TOTALNUM_DIS);
            TOTALNUM_DIS++;
 
@@ -59,9 +63,11 @@ $(document).ready(function(){
     window.onresize = function() {
         reArrange();
         if(document.documentElement.clientHeight>600){
-	    $('#map').css("height",document.documentElement.clientHeight+"px");
+	        $('#map').css("height",document.documentElement.clientHeight+"px");
             $('#cardWall').css("height",document.documentElement.clientHeight+"px");
+            $('.pic').css('height',document.documentElement.clientHeight+'px');
         }
+
     };
 });
 
@@ -89,6 +95,22 @@ function reArrange(){
     }
 }
 function getarraykey(s, v) {for(k in s) {if(s[k] == v) {return k;}}}
+
+function displayLargePic(i){
+    var imgShown=document.getElementById('cardList').getElementsByTagName('img')[i].cloneNode(true);
+    document.getElementById('picDisplay').appendChild(imgShown);
+    $('.pic').fadeIn(500);
+    var ml=(860-$('#picDisplay img').width())/2;
+    var mt=(document.documentElement.clientHeight-$('#picDisplay img').height())*0.5;
+    $('#picDisplay img').css('margin-top',mt+'px');
+    $('#picDisplay img').css('margin-left',ml+'px');
+    $('.pic').css('height',document.documentElement.clientHeight+'px');
+}
+
+function exitLargeDisplay(){
+    $('#picDisplay').empty();
+    $('.pic').fadeOut(500);
+}
 
 
         

@@ -85,6 +85,10 @@ function getCardData(){
     }
     $('#cardList').append('<li><img src="'+IMAGE_URL+'0139.jpg"></li>');
     $('#cardList').append('<li><img src="'+IMAGE_URL+'0207.jpg"></li>');
+    $('#cardList img').click(function(){
+        var i = $(this).parent().index();
+        displayLargePic(i);        
+    });
 }
 
 //eChart Option

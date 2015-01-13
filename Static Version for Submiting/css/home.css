@@ -27,6 +27,7 @@ body{
 
 .left{
 	float: left;
+	position: relative;
 	width: 860px;
 	padding: 0 10px;
 }
@@ -65,6 +66,29 @@ body{
 			display: block; 
 			border: 0
 		}
+
+	.pic{
+		background-color: rgba(0,0,0,0.8);
+		position: absolute;
+		top:0;
+		left: 0px;
+		width: 860px;
+		height: 600px;
+		padding: 0 10px;
+		z-index: 3;
+	}
+
+		#exitBtn{
+			float: right;
+			margin: 25px 40px;
+			font-size: 24px;
+			
+		}
+
+			#exitBtn a{
+				text-decoration: none;
+				color: rgba(255,255,255,0.8);
+			}
 
 .right{
 	float: left;
@@ -132,7 +156,7 @@ body{
 	}
 
 		.sideTitleTab{
-			width: 90px;
+			width: 60px;
 			background-color: #0060b5;
 			padding: 5px 10px;
 			float: left;
